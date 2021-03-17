@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+{% block title %}
+Log In
+{% endblock %}
+{% block main %}
+
+
+<table class="table table-striped">
+   <tr>
+      <th>
+         symbol
+      </th>
+      <th>
+         name
+      </th>
+      <th>
+         shares
+      </th>
+      <th>
+         price
+      </th>
+      <th>
+         total
+      </th>
+   </tr>
+   {% if userinfo|length > 0 %}    
+      {% set stocktotal = [userinfo[0]['cash']] %}
+      {% for infodict in userinfo %}
+     
+      <tr>
+         <td>
+            {{  infodict['symbol'] }}
+         </td>
+         <td>
+            {{  infodict['realtimedata']['name'] }}
+         </td>
+         <td>
+            {{  infodict['quantity'] }} 
+         </td>
+         <td>
+            {{ usd(infodict['realtimedata']['price']) }}
+         </td>
+         <td>
+            {{ usd(infodict['quantity'] * infodict['realtimedata']['price']) }}
+            {% do stocktotal.append(stocktotal.pop() + (infodict['quantity'] * infodict['realtimedata']['price']) | round(2, 'floor')) %}
+         </td>
+      </tr>
+      {% endfor %}
+      <tr>
+         <td>CASH</td>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td> {{ usd(userinfo[0]['cash']) }}</td>
+      </tr>
+      <tr>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td id="totals">{{ usd(stocktotal[0]) }}</td>
+      </tr>
+   </table>
+      
+   {% else %}
+   <table>
+      <tr>
+         <td></td>
+         <td><b>You have not purchased any stocks yet.</b></td>
+      </tr>
+   </table>
+{% endif %}        
+{% endblock %}

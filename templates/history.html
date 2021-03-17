@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+{% block title %}
+Log In
+{% endblock %}
+{% block main %}
+<table class="table table-striped">
+   <tr>
+      <th>
+         symbol
+      </th>
+      <th>
+         shares
+      </th>
+      <th>
+         price
+      </th>
+      <th>
+         Transacted
+      </th>
+   </tr>
+   {% if userinfo|length > 0 %}  
+       {% for infodict in userinfo %}
+       <tr>
+          <td>
+             {{  infodict['symbol'] }}
+          </td>
+          <td>
+             {{  infodict['shares'] }} 
+          </td>
+          <td>
+             {{ infodict['price'] }}
+          </td>
+          <td>
+             {{ infodict['transactiondate'] }}
+          </td>
+       </tr>
+       {% endfor %}
+</table>
+{% else %}
+<table>
+   <tr>
+      <td></td>
+      <td><b>You have not purchased any stocks yet.</b></td>
+   </tr>
+</table>
+{% endif %}  
+{% endblock %}

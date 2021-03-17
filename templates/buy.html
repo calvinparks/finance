@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block title %}
+Quote
+{% endblock %}
+{% block main %}
+<form action="/buy" method="post">
+   <div class="form-group">
+      <input autocomplete="off" autofocus class="form-control" name="symbol" placeholder="Symbol" type="text">
+   </div>
+   <div class="form-group">
+      <input autocomplete="off" autofocus class="form-control" name="shares" placeholder="Shares" type="text">
+   </div>
+   <button class="btn btn-primary" type="submit">Buy</button>
+   <br><br>
+   {% if (symbol != "") %}
+   </br>
+   <div>
+      {% if (errorMessage == "") %}
+      <b>You have successfully purchased {{ purchasequantity }} share(s) of {{ companyName }} ({{ symbol }}} at the price of ${{ usd(latestPrice) }} per share</b>
+      {% endif %}
+      {% if (errorMessage != "") %}
+      <span id="error-message">{{ errorMessage }}</span>
+      {% endif %}  
+   </div>
+   {% endif %}  
+</form>
+{% endblock %}

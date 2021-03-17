@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block title %}
+Quote
+{% endblock %}
+{% block main %}
+<form action="/cash" method="post">
+   <div class="form-group">
+      <input autocomplete="off" autofocus class="form-control" name="amount" placeholder="Amount" type="text">
+   </div>
+   
+   <button class="btn btn-primary" type="submit">Add More Cash</button>
+   <br><br>
+  
+   <div>
+       
+         
+      <b>Your Cash Balance is  {{ "${:.2f}".format(balance) }}</b>
+      
+      {% if (errorMessage != "") %}
+      <br><span id="error-message">{{ errorMessage }}</span>
+      {% endif %}  
+   </div>
+   
+</form>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quoted
+{% endblock %}
+
+{% block main %}
+    {% if (errorMessage == "") %}
+    <b>A share of {{ companyName }} ({{ symbol }}} cost {{ usd(latestPrice) }}</b>
+    {% endif %}
+
+    {% if (errorMessage != "") %}
+    <b>{{ errorMessage }}</b>
+    {% endif %}    
+    
+    <br><p><a href="/quote">Get another quote</a></p>
+    
+{% endblock %}
+
